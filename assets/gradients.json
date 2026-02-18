@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sunset",
+    "name": "Sunset Glow",
+    "colors": ["#FF6B6B", "#FFA07A", "#FFD93D"],
+    "angle": 135
+  },
+  {
+    "id": "ocean",
+    "name": "Ocean Breeze",
+    "colors": ["#667EEA", "#64B6F7", "#5AC8FA"],
+    "angle": 180
+  },
+  {
+    "id": "purple_haze",
+    "name": "Purple Haze",
+    "colors": ["#A78BFA", "#C084FC", "#E879F9"],
+    "angle": 90
+  },
+  {
+    "id": "neon_nights",
+    "name": "Neon Nights",
+    "colors": ["#FF0080", "#7928CA", "#0070F3"],
+    "angle": 45
+  },
+  {
+    "id": "forest",
+    "name": "Forest Dream",
+    "colors": ["#10B981", "#34D399", "#6EE7B7"],
+    "angle": 135
+  },
+  {
+    "id": "fire",
+    "name": "Fire & Ice",
+    "colors": ["#FF4500", "#FF6347", "#87CEEB"],
+    "angle": 270
+  },
+  {
+    "id": "midnight",
+    "name": "Midnight Blue",
+    "colors": ["#1A1A2E", "#0F3460", "#16213E"],
+    "angle": 180
+  },
+  {
+    "id": "peach",
+    "name": "Peach Cream",
+    "colors": ["#FFE5B4", "#FFD1DC", "#FFDAB9"],
+    "angle": 90
+  },
+  {
+    "id": "cyber",
+    "name": "Cyberpunk",
+    "colors": ["#FF006E", "#8338EC", "#3A86FF"],
+    "angle": 45
+  },
+  {
+    "id": "mint",
+    "name": "Mint Fresh",
+    "colors": ["#98FF98", "#B0E0E6", "#E0FFFF"],
+    "angle": 135
+  }
+]
