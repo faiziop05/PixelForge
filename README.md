@@ -1,168 +1,87 @@
-# PixelForge 🎨
+# PixelForge
 
-**Create & Discover Stunning Wallpapers**
+A mobile wallpaper app that combines Pexels-powered discovery with a built-in layer-based wallpaper editor.
 
-PixelForge is a complete mobile wallpaper application that combines powerful discovery features with a built-in creative studio. Browse thousands of high-quality wallpapers from Pexels, or create your own masterpieces with professional editing tools.
+## Overview
 
-## ✨ Features
+PixelForge is a React Native (Expo) app with two halves: a discovery/library side for browsing and saving wallpapers pulled from the Pexels API, and a Creator Studio for building your own wallpapers from scratch using gradients, text, images, and drawing tools on a layered canvas. User accounts, favorites, and projects are backed by Firebase, with a guest mode for local-only use.
 
-### 📱 Discovery
+## Problem It Solves
 
-- Browse curated wallpaper collections
-- Search with filters and categories
-- 10+ themed categories (AMOLED, Minimal, Nature, Space, etc.)
-- Infinite scroll and pull-to-refresh
-- Recent searches and trending suggestions
+Most wallpaper apps are either a static gallery or a separate design tool — not both. PixelForge lets a user discover a wallpaper they like and then remix or personalize it (add text, stickers, gradients) inside the same app, without exporting to a third-party editor.
 
-### 💾 Library
+## Key Features
 
-- Download wallpapers for offline access
-- Sync favorites across devices
-- Create custom collections
-- View download and browsing history
+- **Wallpaper discovery** — category browsing, search, infinite scroll, and 10+ themed categories (AMOLED, Minimal, Nature, Space, etc.) backed by the Pexels API
+- **Library** — download wallpapers for offline use, favorite/sync them, and organize into custom collections
+- **Creator Studio** — a layer-based canvas editor: drag/scale/rotate layers, gradient and image backgrounds, a text tool, stickers, freehand drawing, and undo/redo
+- **Project persistence** — projects are auto-saved locally via AsyncStorage for guests, and synced to Firestore for signed-in users (`EditorService`)
+- **Auth system** — email/password and Google Sign-In via Firebase Auth, plus a guest mode that keeps working entirely offline
+- **Theming** — light, dark, and true-black AMOLED modes via a `ThemeContext`
 
-### 🎨 Creator Studio
+## What's Unique About It
 
-- **Layer-based editing** with drag, scale, and rotate
-- **Backgrounds & Gradients** with 10+ preset packs
-- **Text tool** with multiple fonts and effects
-- **Sticker library** for creative elements
-- **Image import** from gallery or camera
-- **Drawing tools** with brush and pen
-- **Undo/Redo** functionality
-- **Project management** with auto-save
-- **Export** in multiple formats and resolutions
+- **Dual-mode data layer**: the editor and library work fully offline for guests (AsyncStorage) and transparently switch to Firestore-backed sync once a user signs in — the same `EditorService`/`FavoritesService` APIs serve both.
+- Wallpaper discovery and creation live in one navigation flow, so a Pexels wallpaper can be opened directly into the editor rather than only saved or downloaded.
 
-### 🔐 User System
+## Tech Stack
 
-- Email/password authentication
-- Google Sign-In support
-- Guest mode for quick access
-- Cloud sync for authenticated users
-- Profile management
+- **Framework**: React Native via Expo (~54)
+- **Language**: JavaScript (JSX)
+- **Backend**: Firebase (Auth, Firestore)
+- **Wallpaper source**: Pexels API
+- **Navigation**: React Navigation (native-stack + bottom-tabs)
+- **State**: React Context (`AuthContext`, `EditorContext`, `LibraryContext`, `ThemeContext`, `AlertContext`)
+- **Image/export**: `expo-image-manipulator`, `expo-file-system`, `expo-media-library`, `react-native-view-shot`
+- **Wallpaper setting**: `rn-expo-wallpaper-manager`
 
-### 🌗 Themes
-
-- Light mode
-- Dark mode
-- AMOLED mode (true black)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-- Expo CLI
-- iOS Simulator or Android Emulator (optional)
-
-### Installation
-
-1. **Clone the repository**
-
-```bash
-cd PixelForge
-```
-
-2. **Install dependencies**
-
-```bash
-npm install
-```
-
-3. **Configure environment variables**
-   Create a `.env` file based on `.env.example`:
-
-```bash
-cp .env.example .env
-```
-
-4. **Add your API keys**
-
-- Get a free Pexels API key from [https://www.pexels.com/api/](https://www.pexels.com/api/)
-- Create a Firebase project and add your configuration
-
-5. **Start the development server**
-
-```bash
-npm start
-```
-
-6. **Run on device/emulator**
-
-- Press `i` for iOS simulator
-- Press `a` for Android emulator
-- Scan QR code with Expo Go app on your phone
-
-## 🔧 Configuration
-
-### Firebase Setup
-
-1. Create a Firebase project at [https://console.firebase.google.com/](https://console.firebase.google.com/)
-2. Enable Authentication (Email/Password and Google)
-3. Create a Firestore database
-4. Enable Firebase Storage
-5. Copy your Firebase config to `firebase.config.js`
-
-### Pexels API
-
-1. Sign up at [https://www.pexels.com/api/](https://www.pexels.com/api/)
-2. Generate an API key
-3. Add it to your `.env` file
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 PixelForge/
-├── assets/              # Images, fonts, gradients
+├── assets/              # Images, gradients
 ├── src/
 │   ├── components/      # Reusable UI components
-│   │   ├── common/      # Shared components
-│   │   └── editor/      # Editor-specific components
-│   ├── constants/       # App constants and themes
-│   ├── context/         # React Context providers
+│   ├── constants/       # Categories, theme tokens
+│   ├── context/         # React Context providers (auth, editor, library, theme, alerts)
 │   ├── navigation/      # Navigation configuration
-│   ├── screens/         # App screens
-│   │   └── auth/        # Authentication screens
-│   ├── services/        # API and business logic
-│   └── utils/           # Utility functions
-├── App.js               # App entry point
-├── app.json             # Expo configuration
-└── firebase.config.js   # Firebase initialization
+│   ├── screens/         # App screens (incl. auth/, Creator, Editor, Library, Search...)
+│   ├── services/        # AuthService, EditorService, ExportService, PexelsService, ...
+│   └── utils/           # Image and wallpaper helpers
+├── plugins/
+│   └── withAndroidWallpaperConfig.js  # Custom Expo config plugin for Android wallpaper support
+├── App.js
+├── app.json
+└── firebase.config.js
 ```
 
-## 🛠️ Tech Stack
+## Getting Started
 
-- **Framework**: React Native (Expo)
-- **Language**: JavaScript
-- **Backend**: Firebase (Auth, Firestore, Storage)
-- **API**: Pexels API
-- **Navigation**: React Navigation
-- **State Management**: React Context
-- **Image Manipulation**: Expo Image Manipulator
-- **Gestures**: React Native Gesture Handler
+### Prerequisites
 
-## 📱 Screenshots
+- Node.js >= 18
+- Expo CLI
+- A Firebase project (Auth + Firestore enabled)
+- A Pexels API key
 
-_(Add your app screenshots here)_
+### Installation
 
-## 🤝 Contributing
+```bash
+npm install
+cp .env.example .env
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Fill in `.env` with a Pexels API key from [pexels.com/api](https://www.pexels.com/api/), and set up `firebase.config.js` with your Firebase project's Auth + Firestore credentials.
 
-## 📄 License
+### Run the App
 
-This project is licensed under the MIT License.
+```bash
+npm start            # expo start
+npm run android       # expo run:android
+npm run ios           # expo run:ios
+npm run web           # expo start --web
+```
 
-## 🙏 Acknowledgments
+## Notes
 
-- Wallpaper images powered by [Pexels](https://www.pexels.com/)
-- Icons by [Ionicons](https://ionic.io/ionicons)
-
-## 📞 Support
-
-For support, email support@pixelforge.app or open an issue in this repository.
-
----
-
-**Made with ❤️ by the PixelForge Team**
+- Wallpaper export (`ExportService.exportProject`) currently returns a generated filename but does not yet render the composited layers to a final image file — canvas rasterization is a known gap rather than a finished feature.
